@@ -46,7 +46,8 @@ const seed = async () => {
       userId: 2
     })
     PaymentMethod.create({
-      name: 'Visa'
+      name: 'Visa',
+      orderId: 2
     })
     Tag.create({
       name: 'Thor'

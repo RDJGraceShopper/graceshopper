@@ -25,7 +25,7 @@ Order.belongsTo(User, {constraints: false, as: 'user'})
 
 Shipping.belongsTo(Order)
 
-PaymentMethod.belongsTo(Order, {as: 'orders'})
+PaymentMethod.belongsTo(Order, {as: 'order'})
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
