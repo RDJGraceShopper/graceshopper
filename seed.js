@@ -20,6 +20,13 @@ const seed = async () => {
       address: '4 Hanover Square',
       zip: '11221'
     })
+    User.create({
+      firstName: 'Steven',
+      lastName: 'Strange',
+      email: 'docunfamiliar@astralrealm.gov',
+      address: '666 Park ave',
+      zip: '11221'
+    })
     Product.create({
       name: "Thor's Hammer",
       quantity: 1,
@@ -31,6 +38,12 @@ const seed = async () => {
       shippingCost: 5.0,
       total: 35.0,
       userId: 1
+    })
+    Order.create({
+      price: 35.0,
+      shippingCost: 15.0,
+      total: 50.0,
+      userId: 2
     })
     PaymentMethod.create({
       name: 'Visa'
