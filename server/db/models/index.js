@@ -13,9 +13,9 @@ const Transaction = require('./transaction')
  *    BlogPost.belongsTo(User)
  */
 
-Tag.belongsToMany(Product, {as: 'products', through: 'tag-product'})
+Tag.belongsToMany(Product, {as: 'products', through: 'tagProduct'})
 
-PaymentMethod.belongsToMany(User, {as: 'users', through: 'user-paymentMethod'})
+PaymentMethod.belongsToMany(User, {as: 'user', through: 'userPaymentMethod'})
 
 Product.belongsToMany(Order, {as: 'orders', through: 'transaction'})
 Order.belongsToMany(Product, {as: 'products', through: 'transaction'})

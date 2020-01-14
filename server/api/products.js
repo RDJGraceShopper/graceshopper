@@ -13,23 +13,11 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:productId', async (req, res, next) => {
   try {
-    const product = await Product.findByPk(req.params.productId)
+    const product = await Product.findByPk()
     res.json(product)
   } catch (error) {
     next(error)
   }
 })
-
-// router.get('/:productId', async (req, res, next) => {
-//   try {
-//     db.tag-product.findAll({
-//       where: {
-//         pro
-//       } }
-//     )
-//   } catch (error) {
-//     next(error)
-//   }
-// })
 
 module.exports = router
