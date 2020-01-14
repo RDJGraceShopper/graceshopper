@@ -11,7 +11,6 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-//need to eager load tags
 router.get('/:productId', async (req, res, next) => {
   try {
     const product = await Product.findByPk()
