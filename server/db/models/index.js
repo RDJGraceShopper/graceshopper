@@ -19,6 +19,12 @@ PaymentMethod.belongsToMany(User, {as: 'users', through: 'user-paymentMethod'})
 Product.belongsToMany(Order, {as: 'orders', through: 'transaction'})
 Order.belongsToMany(Product, {as: 'products', through: 'transaction'})
 
+Order.belongsTo(User, {as: 'user'})
+User.hasMany(Order)
+
+Shipping.belongsTo(Order)
+
+PaymentMethod.belongsTo(Order, {as: 'order'})
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
