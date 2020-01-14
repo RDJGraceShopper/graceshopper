@@ -1,6 +1,24 @@
 const router = require('express').Router()
 const {User, Order} = require('../db/models')
 
+// SINGLE ROUTER
+
+router.get('/:id', async (req, res, next) => {
+  try {
+    const order = await Order.findOne({
+      where: {
+        id: req.params.id
+      },
+      include: [{model: User, as: 'user'}]
+    })
+
+    res.status(200).send(order)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// GET ALL ROUTERS
 router.get('/', async (req, res, next) => {
   try {
     const orders = await Order.findAll({
@@ -11,7 +29,8 @@ router.get('/', async (req, res, next) => {
       // attributes: ['id', 'email'],
       include: [{model: User, as: 'user'}]
     })
-    res.json(orders)
+
+    res.status(200).send(orders)
   } catch (err) {
     next(err)
   }
