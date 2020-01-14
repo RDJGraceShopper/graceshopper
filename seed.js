@@ -13,11 +13,12 @@ const {
 
 const seed = async () => {
   await db.sync({force: true}).then(() => {
-    Order.create({
-      price: 30.0,
-      // userId: 1,
-      shippingCost: 5.0,
-      total: 35.0
+    User.create({
+      firstName: 'Peter',
+      lastName: 'Parker',
+      email: 'peter@mcu.org',
+      address: '4 Hanover Square',
+      zip: '11221'
     })
     Product.create({
       name: "Thor's Hammer",
@@ -25,21 +26,21 @@ const seed = async () => {
       description: "Thor's Hammer",
       price: 50
     })
-    User.create({
-      firstName: 'Amy',
-      lastName: 'Wong',
-      email: 'amy@mu.edu',
-      address: '5 Hanover Square',
-      zip: '11221'
+    Order.create({
+      price: 30.0,
+      shippingCost: 5.0,
+      total: 35.0,
+      userId: 1
     })
     PaymentMethod.create({
-      name: 'Philip'
+      name: 'Visa'
     })
     Tag.create({
-      name: 'Guenter'
+      name: 'Thor'
     })
     Shipping.create({
-      trackingNumber: '1'
+      trackingNumber: '1',
+      orderId: 1
     })
     Transaction.create({
       quantity: 3,

@@ -18,10 +18,10 @@ Tag.belongsToMany(Product, {as: 'products', through: 'tag-product'})
 PaymentMethod.belongsToMany(User, {as: 'users', through: 'user-paymentMethod'})
 
 Product.belongsToMany(Order, {as: 'orders', through: 'transaction'})
-// Order.belongsToMany(Product, {as: 'products', through: 'transaction'})
+Order.belongsToMany(Product, {as: 'products', through: 'transaction'})
 
-// Order.hasOne(User)
-Order.belongsTo(User, {as: 'user'})
+User.hasMany(Order, {constraints: false})
+Order.belongsTo(User, {constraints: false, as: 'user'})
 
 Shipping.belongsTo(Order)
 
