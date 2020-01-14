@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Order = db.define('product', {
-  subTotal: {
+const Order = db.define('order', {
+  price: {
     type: Sequelize.DECIMAL(10, 2),
     allowNull: false
   },

@@ -1,6 +1,5 @@
-const {db} = require('./server/db')
+const db = require('./server/db')
 const {green, red} = require('chalk')
-const campuses = require('./server/db/campuses')
 
 const {
   Order,
@@ -8,14 +7,15 @@ const {
   Shipping,
   Tag,
   User,
-  PaymentMethod
+  PaymentMethod,
+  Transaction
 } = require('./server/db/models')
 
 const seed = async () => {
   await db.sync({force: true}).then(() => {
     Order.create({
-      subTotal: 30.0,
-      userId: 1,
+      price: 30.0,
+      // userId: 1,
       shippingCost: 5.0,
       total: 35.0
     })
@@ -32,17 +32,20 @@ const seed = async () => {
       address: '5 Hanover Square',
       zip: '11221'
     })
-    students.create({
-      firstName: 'Philip',
-      lastName: 'Fry',
-      email: 'fry@mu.edu',
-      campusId: '1'
+    PaymentMethod.create({
+      name: 'Philip'
     })
-    students.create({
-      firstName: 'Guenter',
-      lastName: 'Farnsworth',
-      email: 'guenter@mu.edu',
-      campusId: '1'
+    Tag.create({
+      name: 'Guenter'
+    })
+    Shipping.create({
+      trackingNumber: '1'
+    })
+    Transaction.create({
+      quantity: 3,
+      price: 30,
+      orderId: 1,
+      productId: 1
     })
   })
   // seed your database here!
