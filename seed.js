@@ -8,7 +8,8 @@ const {
   Tag,
   User,
   PaymentMethod,
-  Transaction
+  Transaction,
+  TagProduct
 } = require('./server/db/models')
 
 const seed = async () => {
@@ -31,7 +32,7 @@ const seed = async () => {
       name: "Thor's Hammer",
       quantity: 1,
       description: "Thor's Hammer",
-      price: 50
+      price: 50.0
     })
     Order.create({
       price: 30.0,
@@ -62,6 +63,10 @@ const seed = async () => {
       price: 30,
       orderId: 1,
       productId: 1
+    })
+    TagProduct.create({
+      productId: 1,
+      tagId: 1
     })
   })
   // seed your database here!
