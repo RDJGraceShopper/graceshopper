@@ -3,7 +3,7 @@ const {User} = require('../db/models')
 module.exports = router
 
 //GET ALL USERS
-router.get('/users', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and email fields - even though
@@ -18,7 +18,7 @@ router.get('/users', async (req, res, next) => {
 })
 
 // GET USER BY ID
-router.get('users/:id', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
     res.json(user)
@@ -28,7 +28,7 @@ router.get('users/:id', async (req, res, next) => {
 })
 
 //CREATE NEW USER
-router.post('/users', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     const newUser = await User.create(req.body)
     res.status(201).send(newUser)
@@ -38,7 +38,7 @@ router.post('/users', async (req, res, next) => {
 })
 
 //MODIFY USER
-router.put('users/:id', async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   try {
     const updateUser = await User.update(req.body, {
       returning: true,
@@ -53,7 +53,7 @@ router.put('users/:id', async (req, res, next) => {
 })
 
 // DELETE USER
-router.delete('users/:id', async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
     await User.destroy({
       where: {
