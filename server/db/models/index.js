@@ -4,7 +4,7 @@ const Product = require('./product')
 const PaymentMethod = require('./paymentMethod')
 const Tag = require('./tag')
 const Shipping = require('./shipping')
-const Transaction = require('./transaction')
+const OrderProduct = require('./orderProduct')
 const TagProduct = require('./tagProduct')
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -21,8 +21,8 @@ Product.belongsToMany(Tag, {through: TagProduct})
 
 PaymentMethod.belongsToMany(User, {as: 'user', through: 'userPaymentMethod'})
 
-Product.belongsToMany(Order, {as: 'orders', through: 'transaction'})
-Order.belongsToMany(Product, {as: 'products', through: 'transaction'})
+Product.belongsToMany(Order, {as: 'orders', through: OrderProduct})
+Order.belongsToMany(Product, {as: 'products', through: OrderProduct})
 
 User.hasMany(Order, {constraints: false})
 Order.belongsTo(User, {constraints: false, as: 'user'})
@@ -45,6 +45,6 @@ module.exports = {
   PaymentMethod,
   Tag,
   Shipping,
-  Transaction,
+  OrderProduct,
   TagProduct
 }
