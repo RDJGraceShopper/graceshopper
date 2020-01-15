@@ -31,8 +31,10 @@ router.post('/', async (req, res, next) => {
 // read
 router.get('/:productId', async (req, res, next) => {
   try {
+    const magic = await Object.keys(Product.prototype)
     const product = await Product.findByPk(req.params.productId)
-    res.json(product)
+    const tags = await product.getTags()
+    res.json({product, magic, tags})
   } catch (error) {
     next(error)
   }
@@ -71,5 +73,7 @@ router.delete('/:productId', async (req, res, next) => {
     next(error)
   }
 })
+
+//MODEL METHOD TO CHECK QUANT AT 0
 
 module.exports = router
