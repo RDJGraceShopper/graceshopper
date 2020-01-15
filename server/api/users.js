@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
-module.exports = router
 
 //GET ALL USERS
 router.get('/', async (req, res, next) => {
@@ -65,3 +64,7 @@ router.delete('/:id', async (req, res, next) => {
     next(error)
   }
 })
+
+//admins Rights via PUT request check from admin only
+
+module.exports = router
