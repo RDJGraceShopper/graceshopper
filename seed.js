@@ -50,7 +50,8 @@ const seed = async () => {
       orderId: 2
     })
     Tag.create({
-      name: 'Thor'
+      name: 'Thor',
+      productId: 1
     })
     Shipping.create({
       trackingNumber: '1',
