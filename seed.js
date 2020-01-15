@@ -8,7 +8,7 @@ const {
   Tag,
   User,
   PaymentMethod,
-  Transaction,
+  OrderProduct,
   TagProduct
 } = require('./server/db/models')
 
@@ -58,7 +58,7 @@ const seed = async () => {
       trackingNumber: '1',
       orderId: 1
     })
-    Transaction.create({
+    OrderProduct.create({
       quantity: 3,
       price: 30,
       orderId: 1,
