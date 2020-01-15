@@ -36,4 +36,40 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.post('/', async (req, res, next) => {
+  try {
+    const newOrder = await Order.create(req.body)
+    res.json(newOrder)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:orderId', async (req, res, next) => {
+  try {
+    await Order.destroy({
+      where: {
+        id: req.params.orderId
+      }
+    })
+    res.status(204).end()
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/:orderId', async (req, res, next) => {
+  try {
+    const updatedOrder = await Order.update(req.body, {
+      returning: true,
+      where: {
+        id: req.params.orderId
+      }
+    })
+    res.json(updatedOrder)
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = router
