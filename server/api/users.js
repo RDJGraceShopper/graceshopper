@@ -2,7 +2,7 @@ const router = require('express').Router()
 const {User} = require('../db/models')
 const session = require('express-session')
 //STRETCH GOAL: AUTHORIZATION WITH JWT
-const jwt = require('jsonwebtoken')
+// const jwt = require('jsonwebtoken')
 
 // router.use(session({
 //   key: 'user_sid',
