@@ -1,15 +1,59 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
+const session = require('express-session')
+//STRETCH GOAL: AUTHORIZATION WITH JWT
+const jwt = require('jsonwebtoken')
+
+// router.use(session({
+//   key: 'user_sid',
+//   secret: 'iamironman',
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: {
+//     expires: 86400000 // 1day
+//   }
+// }));
+
+// router.use((req,res, next) => {
+//   if(!req.cookies.user_sid && !req.session.user){
+//     res.clearCookie('user_sid')
+//   }
+//   next()
+// })
+//CREATE NEW USER
+//TO DO > HOW TO NOT ALLOW DUPLICATE USER status(409, 422)
+router.post('/signup', async (req, res, next) => {
+  try {
+    const newUser = await User.create({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      address: req.body.address,
+      zip: req.body.zip,
+      password: req.body.password
+    })
+    res.status(201).json({message: 'User Created'})
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/login', async (req, res, next) => {
+  const logInUser = User.find(user => user.email === req.body.email)
+  if (logInUser === null) {
+    return res.status(400).send('Cannot Find User')
+  }
+  try {
+    //How to compare passwords in crypto
+  } catch (error) {
+    next(error)
+  }
+})
 
 //GET ALL USERS
 router.get('/', async (req, res, next) => {
   try {
-    const users = await User.findAll({
-      // explicitly select only the id and email fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
-      attributes: ['id', 'email']
-    })
+    const users = await User.findAll()
     res.json(users)
   } catch (err) {
     next(err)
@@ -21,16 +65,6 @@ router.get('/:id', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
     res.json(user)
-  } catch (error) {
-    next(error)
-  }
-})
-
-//CREATE NEW USER
-router.post('/', async (req, res, next) => {
-  try {
-    const newUser = await User.create(req.body)
-    res.status(201).send(newUser)
   } catch (error) {
     next(error)
   }
