@@ -2,7 +2,8 @@ const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
 
-router.get('/', async (req, res, next) => {
+//GET ALL USERS
+router.get('/users', async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and email fields - even though
@@ -16,10 +17,50 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', async (req, res, next) => {
+// GET USER BY ID
+router.get('users/:id', async (req, res, next) => {
   try {
-    const userId = await User.findById(req.params.id)
-    res.json(userId)
+    const user = await User.findByPk(req.params.id)
+    res.json(user)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//CREATE NEW USER
+router.post('/users', async (req, res, next) => {
+  try {
+    const newUser = await User.create(req.body)
+    res.status(201).send(newUser)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//MODIFY USER
+router.put('users/:id', async (req, res, next) => {
+  try {
+    const updateUser = await User.update(req.body, {
+      returning: true,
+      where: {
+        id: req.params.id
+      }
+    })
+    res.send(updateUser)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// DELETE USER
+router.delete('users/:id', async (req, res, next) => {
+  try {
+    await User.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    res.sendStatus(204)
   } catch (error) {
     next(error)
   }
