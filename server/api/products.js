@@ -72,4 +72,6 @@ router.delete('/:productId', async (req, res, next) => {
   }
 })
 
+//MODEL METHOD TO CHECK QUANT AT 0
+
 module.exports = router

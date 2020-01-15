@@ -97,3 +97,5 @@ User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
 })
+
+//ADD ADMIN FIELD LOGGED IN FIELD

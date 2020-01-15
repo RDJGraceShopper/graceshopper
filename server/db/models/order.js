@@ -15,5 +15,9 @@ const Order = db.define('order', {
     allowNull: false
   }
 })
-
+// ADD STATUS and ADJUST DECIMAL
+// ENUM
+//price => subtotal
+//Updated At
+//Purchase Date
 module.exports = Order

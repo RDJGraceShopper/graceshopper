@@ -65,4 +65,6 @@ router.delete('/:id', async (req, res, next) => {
   }
 })
 
+//admins Rights via PUT request check from admin only
+
 module.exports = router

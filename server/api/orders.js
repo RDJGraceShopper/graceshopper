@@ -72,4 +72,8 @@ router.put('/:orderId', async (req, res, next) => {
   }
 })
 
+//ORDER OF ROUTES GROUPED BY PATHNAME
+//ACCESSIBLE ONLY BY AUTHORIZED USER
+//ITEMIZED ORDERS
+
 module.exports = router
