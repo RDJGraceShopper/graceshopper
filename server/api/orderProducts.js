@@ -1,9 +1,9 @@
 const router = require('express').Router()
-const {Transaction} = require('../db/models')
+const {OrderProduct} = require('../db/models')
 module.exports = router
 
 router.get('/:orderId', async (req, res, next) => {
-  const order = await Transaction.findAll({
+  const order = await OrderProduct.findAll({
     where: {
       orderId: req.params.orderId
     }
