@@ -49,7 +49,9 @@ router.get('/', isAdmin, async (req, res, next) => {
 // GET USER BY ID
 router.get('/:id', isLoggedInOrIsAdmin, async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id)
+    const user = await User.findByPk(req.params.id, {
+      include: [{model: Order, as: 'orders'}]
+    })
     res.json(user)
   } catch (error) {
     next(error)
