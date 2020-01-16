@@ -37,6 +37,10 @@ const User = db.define('user', {
   tier: {
     type: Sequelize.INTEGER
   },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
   password: {
     type: Sequelize.STRING,
     validate: {
