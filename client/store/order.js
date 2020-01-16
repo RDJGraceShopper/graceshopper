@@ -78,7 +78,7 @@ export const ordersReducer = (state = initialState.orders, action) => {
   }
 }
 
-export const orderReducer = (state = initialState.order, action) => {
+export const orderReducer = (state = initialState.selectedOrder, action) => {
   switch (action.type) {
     case GOT_SINGLE_ORDER:
       return action.order
