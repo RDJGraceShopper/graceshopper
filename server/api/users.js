@@ -1,28 +1,13 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
-const session = require('express-session')
-//STRETCH GOAL: AUTHORIZATION WITH JWT
-// const jwt = require('jsonwebtoken')
+const {
+  isAdmin,
+  isLoggedInOrIsAdmin,
+  duplicateUsers
+} = require('./routeProtectors')
 
-// router.use(session({
-//   key: 'user_sid',
-//   secret: 'iamironman',
-//   resave: false,
-//   saveUninitialized: false,
-//   cookie: {
-//     expires: 86400000 // 1day
-//   }
-// }));
-
-// router.use((req,res, next) => {
-//   if(!req.cookies.user_sid && !req.session.user){
-//     res.clearCookie('user_sid')
-//   }
-//   next()
-// })
 //CREATE NEW USER
-//TO DO > HOW TO NOT ALLOW DUPLICATE USER status(409, 422)
-router.post('/signup', async (req, res, next) => {
+router.post('/signup', duplicateUsers, async (req, res, next) => {
   try {
     const newUser = await User.create({
       firstName: req.body.firstName,
@@ -39,7 +24,7 @@ router.post('/signup', async (req, res, next) => {
 })
 
 router.post('/login', async (req, res, next) => {
-  const logInUser = User.find(user => user.email === req.body.email)
+  const logInUser = await User.find(user => user.email === req.body.email)
   if (logInUser === null) {
     return res.status(400).send('Cannot Find User')
   }
@@ -51,7 +36,7 @@ router.post('/login', async (req, res, next) => {
 })
 
 //GET ALL USERS
-router.get('/', async (req, res, next) => {
+router.get('/', isAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll()
     res.json(users)
@@ -61,7 +46,7 @@ router.get('/', async (req, res, next) => {
 })
 
 // GET USER BY ID
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', isLoggedInOrIsAdmin, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
     res.json(user)
@@ -71,7 +56,7 @@ router.get('/:id', async (req, res, next) => {
 })
 
 //MODIFY USER
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isLoggedInOrIsAdmin, async (req, res, next) => {
   try {
     const updateUser = await User.update(req.body, {
       returning: true,
@@ -85,8 +70,8 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
-// DELETE USER
-router.delete('/:id', async (req, res, next) => {
+// DELETE USER ONLY BY ADMIN
+router.delete('/:id', isLoggedInOrIsAdmin, async (req, res, next) => {
   try {
     await User.destroy({
       where: {
