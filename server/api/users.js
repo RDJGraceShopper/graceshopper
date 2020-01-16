@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Order} = require('../db/models')
 const session = require('express-session')
 //STRETCH GOAL: AUTHORIZATION WITH JWT
 // const jwt = require('jsonwebtoken')
@@ -94,6 +94,27 @@ router.delete('/:id', async (req, res, next) => {
       }
     })
     res.sendStatus(204)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// GET ORDERS FOR A GIVEN USER
+router.get('/:id/orders', async (req, res, next) => {
+  try {
+    // check if the user exists
+    const givenUser = await User.findByPk(req.params.id)
+    if (!givenUser)
+      throw new Error(`User with id of ${req.params.id} not found`)
+
+    // if the user exists...
+    const orders = await Order.findAll({
+      where: {
+        userId: req.params.id
+      }
+    })
+
+    res.status(200).send(orders)
   } catch (error) {
     next(error)
   }

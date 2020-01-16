@@ -40,7 +40,6 @@ export const getProducts = () => {
   return async dispatch => {
     try {
       const response = await axios.get('/api/products')
-      console.log(response.data)
       dispatch(gotProducts(response.data))
     } catch (error) {
       console.log(error)
@@ -92,7 +91,6 @@ export const getSingleProduct = productId => {
 export const productsReducer = function(state = initialState.products, action) {
   switch (action.type) {
     case GOT_ALL_PRODUCTS:
-      console.log(action.products)
       return [...action.products]
     default:
       return state
