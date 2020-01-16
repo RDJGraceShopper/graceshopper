@@ -8,7 +8,7 @@ const {
 } = require('./routeProtectors')
 
 //CREATE NEW USER
-router.post('/signup', duplicateUsers, async (req, res, next) => {
+router.post('/signup', async (req, res, next) => {
   try {
     const newUser = await User.create({
       firstName: req.body.firstName,
@@ -24,7 +24,7 @@ router.post('/signup', duplicateUsers, async (req, res, next) => {
   }
 })
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', duplicateUsers, async (req, res, next) => {
   const logInUser = await User.find(user => user.email === req.body.email)
   if (logInUser === null) {
     return res.status(400).send('Cannot Find User')
