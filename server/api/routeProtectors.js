@@ -1,5 +1,5 @@
 function isAdmin(req, res, next) {
-  req.user.isAdmin ? next() : res.redirect('/')
+  req.user && req.user.isAdmin ? next() : res.redirect('/')
 }
 
 function isLoggedInOrIsAdmin(req, res, next) {

@@ -78,7 +78,12 @@ export const getSingleProduct = productId => {
   return async dispatch => {
     try {
       const response = await axios.get(`/api/products/${productId}`)
-      dispatch(gotSingleProduct(response.data))
+      let productData = response.data
+      let product = {
+        ...productData.product,
+        tags: productData.tags
+      }
+      dispatch(gotSingleProduct(product))
     } catch (error) {
       console.log(error)
     }
