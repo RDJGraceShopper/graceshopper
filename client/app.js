@@ -8,8 +8,12 @@ import Layout from './components/Layout/Layout'
 const App = () => {
   return (
     <div>
-      <Navbar />
-      <Routes />
+      <Layout>
+        <Switch>
+          <Navbar />
+          <Routes />
+        </Switch>
+      </Layout>
     </div>
   )
 }
