@@ -11,7 +11,6 @@ import {
 class Products extends React.Component {
   componentDidMount() {
     this.props.getProducts()
-    console.log(this.props)
   }
 
   render() {
@@ -36,7 +35,8 @@ class Products extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    products: state.productsReducer // WHY???
+    products: state.products, // WHY???
+    product: state.product
   }
 }
 
