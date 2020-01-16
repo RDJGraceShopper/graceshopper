@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import store from '../store'
+// import store from '../store'
 import {getOrders, getOrdersForUser, getSingleOrder} from '../store'
 
 class Orders extends React.Component {

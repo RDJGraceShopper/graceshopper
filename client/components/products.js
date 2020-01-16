@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import store from '../store'
+import ProductTile from './ProductTile'
 import {
   getProducts,
   getSingleProduct,
@@ -19,11 +20,7 @@ class Products extends React.Component {
         <ul>
           {this.props.products &&
             this.props.products.map(product => {
-              return (
-                <li key={product.id}>
-                  <h3>{product.name}</h3>
-                </li>
-              )
+              return <ProductTile product={product} key={product.id} />
             })}
         </ul>
       </div>
