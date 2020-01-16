@@ -14,7 +14,7 @@ const TagProduct = require('./tagProduct')
  */
 
 Tag.belongsToMany(Product, {as: 'products', through: TagProduct})
-Product.belongsToMany(Tag, {through: TagProduct})
+Product.belongsToMany(Tag, {as: 'tags', through: TagProduct})
 
 // Tag.belongsTo(Product)
 // Product.hasMany(Tag)
