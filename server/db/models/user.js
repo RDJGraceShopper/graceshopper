@@ -27,12 +27,12 @@ const User = db.define('user', {
     }
   },
   address: {
-    type: Sequelize.STRING,
-    allowNull: false
+    type: Sequelize.STRING
+    // allowNull: false
   },
   zip: {
-    type: Sequelize.STRING,
-    allowNull: false
+    type: Sequelize.STRING
+    // allowNull: false
   },
   tier: {
     type: Sequelize.INTEGER
