@@ -11,7 +11,7 @@ import {getOrdersForUser} from '../store/order'
 class UserHome extends React.Component {
   componentDidMount() {
     console.log('fdsfds')
-    this.props.getOrdersForUser(2)
+    this.props.getOrdersForUser(this.props.user.id)
   }
 
   render() {

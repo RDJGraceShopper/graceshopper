@@ -34,6 +34,18 @@ const seed = async () => {
       description: "Thor's Hammer",
       price: 50.0
     })
+    Product.create({
+      name: "Professor X's Wheelchair",
+      quantity: 2,
+      description: 'They see me rollin',
+      price: 5000.0
+    })
+    Product.create({
+      name: "Wolverine's Claws",
+      quantity: 2,
+      description: 'Indestructible!',
+      price: 1283.0
+    })
     Order.create({
       price: 30.0,
       shippingCost: 5.0,
