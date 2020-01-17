@@ -16,3 +16,9 @@ export const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 export const GOT_ALL_ORDERS = 'GOT_ALL_ORDERS'
 export const GOT_SINGLE_ORDER = 'GOT_SINGLE_ORDER'
 export const UPDATED_SINGLE_ORDER = 'UPDATED_SINGLE_ORDER'
+
+// cart action types
+
+export const ADD_TO_CART = 'ADD_TO_CART'
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
+export const GOT_CART = 'GOT_CART'
