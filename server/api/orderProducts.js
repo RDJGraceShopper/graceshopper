@@ -13,10 +13,26 @@ router.get('/:orderId', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    delete req.body.id
+    // check if order item already exists
+    let oldOrderItem = await OrderProduct.findOne({
+      where: {
+        orderId: req.body.orderId,
+        productId: req.body.productId
+      }
+    })
 
-    let newOrderItem = await OrderProduct.create(req.body)
-    res.status(201).send({id: newOrderItem.id})
+    // if an item exists, update its quantity by 1
+    if (oldOrderItem) {
+      await oldOrderItem.update({
+        quantity: oldOrderItem.quantity + 1
+      })
+      res.status(200).send({id: oldOrderItem.id})
+    } else {
+      delete req.body.id
+
+      let newOrderItem = await OrderProduct.create(req.body)
+      res.status(201).send({id: newOrderItem.id})
+    }
   } catch (error) {
     next(error)
   }
