@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Order} = require('../db/models')
+const {User, Order, Product, OrderProduct} = require('../db/models')
 
 // SINGLE ROUTER
 
@@ -9,7 +9,10 @@ router.get('/:id', async (req, res, next) => {
       where: {
         id: req.params.id
       },
-      include: [{model: User, as: 'user'}]
+      include: [
+        {model: User, as: 'user'},
+        {model: Product, as: 'products', through: OrderProduct}
+      ]
     })
 
     res.status(200).send(order)

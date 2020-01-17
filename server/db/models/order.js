@@ -13,6 +13,11 @@ const Order = db.define('order', {
   total: {
     type: Sequelize.DECIMAL(10, 2),
     allowNull: false
+  },
+  status: {
+    type: Sequelize.ENUM('Pending', 'Completed'),
+    allowNull: false,
+    defaultValue: 'Pending'
   }
 })
 // ADD STATUS and ADJUST DECIMAL
