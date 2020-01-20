@@ -29,7 +29,6 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: process.env.GOOGLE_CALLBACK
   }
-
   const strategy = new GoogleStrategy(
     googleConfig,
     (token, refreshToken, profile, done) => {
@@ -39,7 +38,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
       const firstName = profile.name.givenName
       const lastName = profile.name.familyName
       const fullName = profile.displayName
-
+      console.log('profile======>', profile)
       User.findOrCreate({
         where: {googleId},
         defaults: {email, imgUrl, firstName, lastName, fullName}
