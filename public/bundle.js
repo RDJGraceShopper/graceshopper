@@ -238,6 +238,184 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./client/components/Cart/Cart.js":
+/*!****************************************!*\
+  !*** ./client/components/Cart/Cart.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store */ "./client/store/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+var Cart =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Cart, _Component);
+
+  function Cart(props) {
+    var _this;
+
+    _classCallCheck(this, Cart);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Cart).call(this, props));
+    _this.state = {
+      products: [],
+      checkedOut: false
+    };
+    _this.submitOrder = _this.submitOrder.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Cart, [{
+    key: "submitOrder",
+    value: function () {
+      var _submitOrder = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee() {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return this.props.completeOrder(this.props.userId, this.props.openOrder);
+
+              case 2:
+                this.setState({
+                  products: []
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function submitOrder() {
+        return _submitOrder.apply(this, arguments);
+      }
+
+      return submitOrder;
+    }()
+  }, {
+    key: "componentDidMount",
+    value: function () {
+      var _componentDidMount = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2() {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return this.props.getOrder(this.props.openOrder.id);
+
+              case 2:
+                this.setState({
+                  products: this.props.order.products
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function componentDidMount() {
+        return _componentDidMount.apply(this, arguments);
+      }
+
+      return componentDidMount;
+    }()
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var products = this.state.products;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "This is my cart"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, products.map(function (product) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          key: product.id
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, product.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Price: ", product.orderProduct.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Quantity: ", product.orderProduct.quantity));
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Order total price: ", this.props.openOrder.total), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: function onClick() {
+          return _this2.submitOrder();
+        }
+      }, "Submit"));
+    }
+  }]);
+
+  return Cart;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    openOrder: state.openOrder,
+    order: state.order,
+    userId: state.user.id
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    getOrder: function getOrder(orderId) {
+      return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_2__["getSingleOrder"])(orderId));
+    },
+    gotOrder: function gotOrder(order) {
+      return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_2__["gotSingleOrder"])(order));
+    },
+    makeOrder: function makeOrder(order) {
+      return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_2__["makeOrder"])(order));
+    },
+    getOpenOrder: function getOpenOrder(userId) {
+      return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_2__["getOpenOrder"])(userId));
+    },
+    completeOrder: function completeOrder(userId, orderId) {
+      return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_2__["completeOrder"])(userId, orderId));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps, mapDispatchToProps)(Cart));
+
+/***/ }),
+
 /***/ "./client/components/Cart/cart.js":
 /*!****************************************!*\
   !*** ./client/components/Cart/cart.js ***!
@@ -267,9 +445,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -292,15 +470,17 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Cart).call(this, props));
     _this.state = {
-      products: []
+      products: [],
+      checkedOut: false
     };
+    _this.submitOrder = _this.submitOrder.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Cart, [{
-    key: "componentDidMount",
+    key: "submitOrder",
     value: function () {
-      var _componentDidMount = _asyncToGenerator(
+      var _submitOrder = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee() {
         return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -308,11 +488,11 @@ function (_Component) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return this.props.getOrder(this.props.openOrderId);
+                return this.props.completeOrder(this.props.userId, this.props.openOrder);
 
               case 2:
                 this.setState({
-                  products: this.props.order.products
+                  products: []
                 });
 
               case 3:
@@ -321,6 +501,38 @@ function (_Component) {
             }
           }
         }, _callee, this);
+      }));
+
+      function submitOrder() {
+        return _submitOrder.apply(this, arguments);
+      }
+
+      return submitOrder;
+    }()
+  }, {
+    key: "componentDidMount",
+    value: function () {
+      var _componentDidMount = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2() {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return this.props.getOrder(this.props.openOrder.id);
+
+              case 2:
+                this.setState({
+                  products: this.props.order.products
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
       }));
 
       function componentDidMount() {
@@ -332,12 +544,18 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var products = this.state.products;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "This is my cart"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, products.map(function (product) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           key: product.id
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, product.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Price: ", product.orderProduct.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Quantity: ", product.orderProduct.quantity));
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Order total price: ", this.props.order.total));
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Order total price: ", this.props.openOrder.total), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: function onClick() {
+          return _this2.submitOrder();
+        }
+      }, "Submit"));
     }
   }]);
 
@@ -346,8 +564,9 @@ function (_Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    openOrderId: state.openOrder.id,
-    order: state.order
+    openOrder: state.openOrder,
+    order: state.order,
+    userId: state.user.id
   };
 };
 
@@ -355,6 +574,18 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     getOrder: function getOrder(orderId) {
       return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_2__["getSingleOrder"])(orderId));
+    },
+    gotOrder: function gotOrder(order) {
+      return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_2__["gotSingleOrder"])(order));
+    },
+    makeOrder: function makeOrder(order) {
+      return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_2__["makeOrder"])(order));
+    },
+    getOpenOrder: function getOpenOrder(userId) {
+      return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_2__["getOpenOrder"])(userId));
+    },
+    completeOrder: function completeOrder(userId, orderId) {
+      return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_2__["completeOrder"])(userId, orderId));
     }
   };
 };
@@ -374,7 +605,14 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Cart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Cart */ "./client/components/Cart/Cart.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../store */ "./client/store/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -384,13 +622,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
 
 
 
@@ -399,21 +640,84 @@ var Checkout =
 function (_Component) {
   _inherits(Checkout, _Component);
 
-  function Checkout() {
+  function Checkout(props) {
+    var _this;
+
     _classCallCheck(this, Checkout);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Checkout).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Checkout).call(this, props));
+    _this.submitOrder = _this.submitOrder.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(Checkout, [{
+    key: "submitOrder",
+    value: function () {
+      var _submitOrder = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee() {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return this.props.completeOrder(this.props.userId, this.props.openOrder.id);
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function submitOrder() {
+        return _submitOrder.apply(this, arguments);
+      }
+
+      return submitOrder;
+    }()
+  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "This is my modal/popup for checkout"));
+      var _this2 = this;
+
+      var openOrder = this.props.openOrder;
+      var userId = this.props.userId;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "This is my modal/popup for checkout"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Cart__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: function onClick() {
+          return _this2.submitOrder();
+        }
+      }, "Submit"));
     }
   }]);
 
   return Checkout;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    openOrder: state.openOrder,
+    userId: state.user.id
+  };
+};
+
+var mapStateToDispatch = function mapStateToDispatch(dispatch) {
+  return {
+    getOrder: function getOrder(orderId) {
+      return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_3__["getSingleOrder"])(orderId));
+    },
+    makeOrder: function makeOrder(order) {
+      return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_3__["makeOrder"])(order));
+    },
+    getOpenOrder: function getOpenOrder(userId) {
+      return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_3__["getOpenOrder"])(userId));
+    },
+    completeOrder: function completeOrder(userId, orderId) {
+      return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_3__["completeOrder"])(userId, orderId));
+    }
+  };
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (Checkout);
 
@@ -1457,7 +1761,7 @@ var GOT_CART = 'GOT_CART';
 /*!*******************************!*\
   !*** ./client/store/index.js ***!
   \*******************************/
-/*! exports provided: default, me, auth, logout, getProducts, createProduct, removeProduct, getSingleProduct, productsReducer, productReducer, getOrders, getOrdersForUser, getSingleOrder, makeOrder, getOpenOrder, updateOpenOrder, ordersReducer, openOrderReducer, orderReducer */
+/*! exports provided: default, me, auth, logout, getProducts, createProduct, removeProduct, getSingleProduct, productsReducer, productReducer, gotSingleOrder, getOrders, getOrdersForUser, getSingleOrder, makeOrder, getOpenOrder, updateOpenOrder, completeOrder, ordersReducer, openOrderReducer, orderReducer */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1489,6 +1793,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "productReducer", function() { return _product__WEBPACK_IMPORTED_MODULE_5__["productReducer"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "gotSingleOrder", function() { return _order__WEBPACK_IMPORTED_MODULE_6__["gotSingleOrder"]; });
+
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getOrders", function() { return _order__WEBPACK_IMPORTED_MODULE_6__["getOrders"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getOrdersForUser", function() { return _order__WEBPACK_IMPORTED_MODULE_6__["getOrdersForUser"]; });
@@ -1500,6 +1806,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getOpenOrder", function() { return _order__WEBPACK_IMPORTED_MODULE_6__["getOpenOrder"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "updateOpenOrder", function() { return _order__WEBPACK_IMPORTED_MODULE_6__["updateOpenOrder"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "completeOrder", function() { return _order__WEBPACK_IMPORTED_MODULE_6__["completeOrder"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ordersReducer", function() { return _order__WEBPACK_IMPORTED_MODULE_6__["ordersReducer"]; });
 
@@ -1537,17 +1845,19 @@ var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(reducer, m
 /*!*******************************!*\
   !*** ./client/store/order.js ***!
   \*******************************/
-/*! exports provided: getOrders, getOrdersForUser, getSingleOrder, makeOrder, getOpenOrder, updateOpenOrder, ordersReducer, openOrderReducer, orderReducer */
+/*! exports provided: gotSingleOrder, getOrders, getOrdersForUser, getSingleOrder, makeOrder, getOpenOrder, updateOpenOrder, completeOrder, ordersReducer, openOrderReducer, orderReducer */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "gotSingleOrder", function() { return gotSingleOrder; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOrders", function() { return getOrders; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOrdersForUser", function() { return getOrdersForUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSingleOrder", function() { return getSingleOrder; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeOrder", function() { return makeOrder; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOpenOrder", function() { return getOpenOrder; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateOpenOrder", function() { return updateOpenOrder; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "completeOrder", function() { return completeOrder; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ordersReducer", function() { return ordersReducer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openOrderReducer", function() { return openOrderReducer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "orderReducer", function() { return orderReducer; });
@@ -1837,6 +2147,51 @@ var updateOpenOrder = function updateOpenOrder(userId, product, orderId) {
 
       return function (_x6) {
         return _ref6.apply(this, arguments);
+      };
+    }()
+  );
+};
+var completeOrder = function completeOrder(userId, order) {
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref7 = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee7(dispatch) {
+        var response;
+        return regeneratorRuntime.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                _context7.prev = 0;
+                _context7.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/orders/".concat(order.id), {
+                  status: 'Completed'
+                });
+
+              case 3:
+                response = _context7.sent;
+                dispatch(makeOrder({
+                  userId: userId
+                }));
+                _context7.next = 10;
+                break;
+
+              case 7:
+                _context7.prev = 7;
+                _context7.t0 = _context7["catch"](0);
+                console.log(_context7.t0);
+
+              case 10:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7, null, [[0, 7]]);
+      }));
+
+      return function (_x7) {
+        return _ref7.apply(this, arguments);
       };
     }()
   );
