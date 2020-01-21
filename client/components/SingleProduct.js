@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import store from '../store'
 import {getSingleProduct} from '../store'
 import AddToCartButton from './AddToCartButton'
+import {Link} from 'react-router-dom'
 
 class SingleProduct extends React.Component {
   componentDidMount() {
@@ -15,9 +16,10 @@ class SingleProduct extends React.Component {
       <div>
         <img src={product.imageURL} className="product_single_view" />
         <h2>{product.name}</h2>
-        <p>${product.price}</p>
+        <p>${product.price / 100}</p>
         <p>{product.description}</p>
         <AddToCartButton product={product} />
+        <Link to="/products">Back To Products</Link>
       </div>
     )
   }
