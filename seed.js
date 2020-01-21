@@ -32,13 +32,13 @@ const seed = async () => {
       name: "Thor's Hammer",
       quantity: 1,
       description: "Thor's Hammer",
-      price: 50.0
+      price: 5000
     })
     Product.create({
       name: "Professor X's Wheelchair",
       quantity: 2,
       description: 'They see me rollin',
-      price: 5000.0
+      price: 500000
     })
     Product.create({
       name: "Wolverine's Claws",
@@ -47,15 +47,15 @@ const seed = async () => {
       price: 1283.0
     })
     Order.create({
-      price: 30.0,
-      shippingCost: 5.0,
-      total: 35.0,
+      price: 3000,
+      shippingCost: 500,
+      total: 3500,
       userId: 1
     })
     Order.create({
-      price: 35.0,
-      shippingCost: 15.0,
-      total: 50.0,
+      price: 3500,
+      shippingCost: 1500,
+      total: 5000,
       userId: 2
     })
     PaymentMethod.create({
@@ -72,7 +72,7 @@ const seed = async () => {
     })
     OrderProduct.create({
       quantity: 3,
-      price: 30,
+      price: 3000,
       orderId: 1,
       productId: 1
     })

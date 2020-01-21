@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {OrderProduct} = require('../db/models')
+const {OrderProduct, Order} = require('../db/models')
 module.exports = router
 
 router.get('/:orderId', async (req, res, next) => {
@@ -13,9 +13,17 @@ router.get('/:orderId', async (req, res, next) => {
 
 // adding new items to order, increasing quantity of order
 router.post('/', async (req, res, next) => {
+  // method which updates order total
+  let updateOrderTotal = async (orderId, price) => {
+    let orderToUpdate = await Order.findByPk(req.body.orderId)
+    await orderToUpdate.update({
+      total: Number(orderToUpdate.total) + Number(price)
+    })
+  }
+
   try {
+    let finalOrderItem
     // check if order item already exists
-    console.log(req.body)
     let oldOrderItem = await OrderProduct.findOne({
       where: {
         orderId: req.body.orderId,
@@ -29,6 +37,8 @@ router.post('/', async (req, res, next) => {
         quantity: oldOrderItem.quantity + 1,
         price: req.body.product.price
       })
+
+      updateOrderTotal(req.body.orderId, oldOrderItem.price)
       res.status(200).send({id: oldOrderItem.id})
     } else {
       delete req.body.id
@@ -39,6 +49,8 @@ router.post('/', async (req, res, next) => {
         price: req.body.product.price,
         quantity: 1
       })
+
+      updateOrderTotal(req.body.orderId, newOrderItem.price)
       res.status(201).send({id: newOrderItem.id})
     }
   } catch (error) {
