@@ -10,7 +10,7 @@ router.get('/:id', async (req, res, next) => {
         id: req.params.id
       },
       include: [
-        {model: User, as: 'user'},
+        // {model: User, as: 'user'},
         {model: Product, as: 'products', through: OrderProduct}
       ]
     })
