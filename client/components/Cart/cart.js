@@ -28,13 +28,13 @@ class Cart extends Component {
             return (
               <li key={product.id}>
                 <h4>{product.name}</h4>
-                <p>Price: {product.orderProduct.price}</p>
+                <p>Price: {product.orderProduct.price / 100}</p>
                 <p>Quantity: {product.orderProduct.quantity}</p>
               </li>
             )
           })}
         </ul>
-        <h2>Order total price: {this.props.order.total}</h2>
+        <h2>Order total price: {this.props.order.total / 100}</h2>
       </div>
     )
   }
