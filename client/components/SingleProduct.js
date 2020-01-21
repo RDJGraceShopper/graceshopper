@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import store from '../store'
 import {getSingleProduct} from '../store'
+import AddToCartButton from './AddToCartButton'
 
 class SingleProduct extends React.Component {
   componentDidMount() {
@@ -16,6 +17,7 @@ class SingleProduct extends React.Component {
         <h2>{product.name}</h2>
         <p>${product.price}</p>
         <p>{product.description}</p>
+        <AddToCartButton productId={product.id} />
       </div>
     )
   }
