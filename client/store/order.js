@@ -26,7 +26,7 @@ const gotOrders = orders => {
   }
 }
 
-const gotSingleOrder = order => {
+export const gotSingleOrder = order => {
   return {
     type: GOT_SINGLE_ORDER,
     order
@@ -106,6 +106,19 @@ export const updateOpenOrder = (userId, product, orderId) => {
         product
       })
       dispatch(getOpenOrder(userId))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const completeOrder = (userId, order) => {
+  return async dispatch => {
+    try {
+      const response = await axios.put(`/api/orders/${order.id}`, {
+        status: 'Completed'
+      })
+      dispatch(makeOrder({userId}))
     } catch (error) {
       console.log(error)
     }
