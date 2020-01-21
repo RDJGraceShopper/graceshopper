@@ -1,9 +1,10 @@
 const router = require('express').Router()
 const {User, Order, Product, OrderProduct} = require('../db/models')
+const {isLoggedInOrIsAdmin, isAdmin} = require('./routeProtectors')
 
 // SINGLE ROUTER
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', isLoggedInOrIsAdmin, async (req, res, next) => {
   try {
     const order = await Order.findOne({
       where: {
@@ -22,7 +23,7 @@ router.get('/:id', async (req, res, next) => {
 })
 
 // GET ALL ROUTERS
-router.get('/', async (req, res, next) => {
+router.get('/', isLoggedInOrIsAdmin, async (req, res, next) => {
   try {
     const orders = await Order.findAll({
       // explicitly select only the id and email fields - even though
@@ -48,7 +49,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.delete('/:orderId', async (req, res, next) => {
+router.delete('/:orderId', isLoggedInOrIsAdmin, async (req, res, next) => {
   try {
     await Order.destroy({
       where: {
@@ -61,7 +62,7 @@ router.delete('/:orderId', async (req, res, next) => {
   }
 })
 
-router.put('/:orderId', async (req, res, next) => {
+router.put('/:orderId', isLoggedInOrIsAdmin, async (req, res, next) => {
   try {
     const updatedOrder = await Order.update(req.body, {
       returning: true,
