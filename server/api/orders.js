@@ -14,7 +14,6 @@ router.get('/:id', async (req, res, next) => {
         {model: Product, as: 'products', through: OrderProduct}
       ]
     })
-
     res.status(200).send(order)
   } catch (err) {
     next(err)
