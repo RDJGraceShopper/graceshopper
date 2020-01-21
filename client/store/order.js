@@ -76,6 +76,17 @@ export const getSingleOrder = orderId => {
 
 // open order
 
+export const makeOrder = order => {
+  return async dispatch => {
+    try {
+      const response = await axios.post('/api/orders/', order)
+      dispatch(gotOpenOrder(response.data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 export const getOpenOrder = userId => {
   return async dispatch => {
     try {
