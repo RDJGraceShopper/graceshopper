@@ -1,18 +1,33 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-import {getSingleOrder} from '../../store'
+import {
+  gotSingleOrder,
+  getSingleOrder,
+  completeOrder,
+  makeOrder,
+  updateOpenOrder,
+  getOpenOrder
+} from '../../store'
 import {connect} from 'react-redux'
 
 class Cart extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      products: []
+      products: [],
+      checkedOut: false
     }
+    this.submitOrder = this.submitOrder.bind(this)
+  }
+
+  async submitOrder() {
+    await this.props.completeOrder(this.props.userId, this.props.openOrder)
+
+    this.setState({products: []})
   }
 
   async componentDidMount() {
-    await this.props.getOrder(this.props.openOrderId)
+    await this.props.getOrder(this.props.openOrder.id)
 
     this.setState({products: this.props.order.products})
   }
@@ -34,7 +49,9 @@ class Cart extends Component {
             )
           })}
         </ul>
+
         <h2>Order total price: {this.props.order.total / 100}</h2>
+        <button onClick={() => this.submitOrder()}>Submit</button>
       </div>
     )
   }
@@ -42,14 +59,19 @@ class Cart extends Component {
 
 const mapStateToProps = state => {
   return {
-    openOrderId: state.openOrder.id,
-    order: state.order
+    openOrder: state.openOrder,
+    order: state.order,
+    userId: state.user.id
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getOrder: orderId => dispatch(getSingleOrder(orderId))
+    getOrder: orderId => dispatch(getSingleOrder(orderId)),
+    gotOrder: order => dispatch(gotSingleOrder(order)),
+    makeOrder: order => dispatch(makeOrder(order)),
+    getOpenOrder: userId => dispatch(getOpenOrder(userId)),
+    completeOrder: (userId, orderId) => dispatch(completeOrder(userId, orderId))
   }
 }
 
