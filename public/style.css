@@ -147,7 +147,7 @@ button:hover {
   transition: all 0.3s ease 0s;
 }
 
-h2 {
+li {
   color: #fff;
 }
 
@@ -155,5 +155,9 @@ p {
   color: #fff;
 }
 
-h3 {
+h1,
+h2,
+h3,
+h4 {
+  color: #fff;
 }

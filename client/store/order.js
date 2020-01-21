@@ -98,10 +98,24 @@ export const getOpenOrder = userId => {
   }
 }
 
-export const updateOpenOrder = (userId, product, orderId) => {
+export const addToOpenOrder = (userId, product, orderId) => {
   return async dispatch => {
     try {
       const response = await axios.post(`/api/orderproducts/`, {
+        orderId: orderId,
+        product
+      })
+      dispatch(getOpenOrder(userId))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const removeFromOpenOrder = (userId, product, orderId) => {
+  return async dispatch => {
+    try {
+      const response = await axios.delete('/api/orderproducts', {
         orderId: orderId,
         product
       })
