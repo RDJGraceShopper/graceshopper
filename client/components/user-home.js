@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import OrderTile from './OrderTile'
-import {getOrdersForUser} from '../store/order'
+import {getOrdersForUser, getOpenOrder, makeOrder} from '../store/order'
 
 /**
  * COMPONENT
@@ -10,8 +10,14 @@ import {getOrdersForUser} from '../store/order'
 
 class UserHome extends React.Component {
   componentDidMount() {
-    console.log('fdsfds')
     this.props.getOrdersForUser(this.props.user.id)
+
+    // get the open order or create a new one
+    this.props.getOpenOrder(this.props.user.id)
+
+    if (!this.props.openOrder.id) {
+      this.props.makeOrder({userId: this.props.user.id})
+    }
   }
 
   render() {
@@ -68,13 +74,16 @@ class UserHome extends React.Component {
 const mapState = state => {
   return {
     user: state.user,
-    orders: state.orders
+    orders: state.orders,
+    openOrder: state.openOrder
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    getOrdersForUser: userId => dispatch(getOrdersForUser(userId))
+    getOrdersForUser: userId => dispatch(getOrdersForUser(userId)),
+    makeOrder: order => dispatch(makeOrder(order)),
+    getOpenOrder: userId => dispatch(getOpenOrder(userId))
   }
 }
 

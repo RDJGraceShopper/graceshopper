@@ -41,7 +41,7 @@ router.post('/', async (req, res, next) => {
 
 // remove a single item from order
 
-router.update('/', async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   try {
     let orderItemToUpdate = await OrderProduct.findOne({
       where: {

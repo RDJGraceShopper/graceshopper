@@ -4,15 +4,15 @@ const db = require('../db')
 const Order = db.define('order', {
   price: {
     type: Sequelize.DECIMAL(10, 2),
-    allowNull: false
+    defaultValue: 0.0
   },
   shippingCost: {
     type: Sequelize.DECIMAL(10, 2),
-    allowNull: false
+    defaultValue: 0.0
   },
   total: {
     type: Sequelize.DECIMAL(10, 2),
-    allowNull: false
+    defaultValue: 0.0
   },
   status: {
     type: Sequelize.ENUM('Pending', 'Completed'),
