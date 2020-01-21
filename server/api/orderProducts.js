@@ -11,6 +11,7 @@ router.get('/:orderId', async (req, res, next) => {
   res.json(order)
 })
 
+// adding new items to order, increasing quantity of order
 router.post('/', async (req, res, next) => {
   try {
     // check if order item already exists
@@ -38,9 +39,36 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+// remove a single item from order
+
+router.update('/', async (req, res, next) => {
   try {
-    let orderItemToDelete = await OrderProduct.findByPk(req.params.id)
+    let orderItemToUpdate = await OrderProduct.findOne({
+      where: {
+        productId: req.body.productId,
+        orderId: req.body.orderId
+      }
+    })
+
+    if (!orderItemToUpdate) throw new Error(`Order item not found`)
+
+    if (orderItemToUpdate.quantity === 1) await orderItemToUpdate.destroy()
+    else
+      await orderItemToUpdate.update({quantity: orderItemToUpdate.quantity - 1})
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+// remove a whole product from order
+router.delete('/', async (req, res, next) => {
+  try {
+    let orderItemToDelete = await OrderProduct.findOne({
+      where: {
+        productId: req.body.productId,
+        orderId: req.body.orderId
+      }
+    })
 
     if (!orderItemToDelete) throw new Error(`Order item not found`)
     else {

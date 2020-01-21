@@ -5,14 +5,16 @@ import axios from 'axios'
 import {
   GOT_ALL_ORDERS,
   GOT_SINGLE_ORDER,
-  UPDATED_SINGLE_ORDER
+  UPDATED_SINGLE_ORDER,
+  GOT_OPEN_ORDER
 } from './actionTypes'
 
 // INITIAL STATE
 
 const initialState = {
   selectedOrder: {},
-  orders: []
+  orders: [],
+  openOrder: {}
 }
 
 // ACTION CREATORS
@@ -27,10 +29,16 @@ const gotOrders = orders => {
 const gotSingleOrder = order => {
   return {
     type: GOT_SINGLE_ORDER,
-    gotSingleOrder
+    order
   }
 }
 
+const gotOpenOrder = openOrder => {
+  return {
+    type: GOT_OPEN_ORDER,
+    openOrder
+  }
+}
 // THUNK CREATORS
 
 export const getOrders = () => {
@@ -66,6 +74,33 @@ export const getSingleOrder = orderId => {
   }
 }
 
+// open order
+
+export const getOpenOrder = userId => {
+  return async dispatch => {
+    try {
+      const response = await axios.get(`/api/users/${userId}/openOrder`)
+      dispatch(gotOpenOrder(response.data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const updateOpenOrder = (userId, orderId, productId) => {
+  return async dispatch => {
+    try {
+      const response = await axios.post(`/api/orderproducts/`, {
+        orderId,
+        productId
+      })
+      dispatch(getOpenOrder(userId))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 // REDUCERS
 
 export const ordersReducer = (state = initialState.orders, action) => {
@@ -78,11 +113,20 @@ export const ordersReducer = (state = initialState.orders, action) => {
   }
 }
 
+export const openOrderReducer = (state = initialState.openOrder, action) => {
+  switch (action.type) {
+    case GOT_OPEN_ORDER:
+      return action.openOrder
+
+    default:
+      return state
+  }
+}
+
 export const orderReducer = (state = initialState.selectedOrder, action) => {
   switch (action.type) {
     case GOT_SINGLE_ORDER:
       return action.order
-
     default:
       return state
   }

@@ -108,6 +108,30 @@ router.get('/:id/orders', async (req, res, next) => {
   }
 })
 
+// GET OPEN ORDER FOR A GIVEN USER
+
+router.get('/:id/openOrder', async (req, res, next) => {
+  try {
+    // check if the user exists
+    const givenUser = await User.findByPk(req.params.id)
+
+    if (!givenUser)
+      throw new Error(`User with id of ${req.params.id} not found`)
+
+    // if the user exists...
+    const openOrder = await Order.findOne({
+      where: {
+        userId: req.params.id,
+        status: 'Pending'
+      }
+    })
+
+    res.status(200).send(openOrder)
+  } catch (error) {
+    next(error)
+  }
+})
+
 //admins Rights via PUT request check from admin only
 
 module.exports = router
