@@ -27,7 +27,7 @@ const gotOrders = orders => {
 const gotSingleOrder = order => {
   return {
     type: GOT_SINGLE_ORDER,
-    gotSingleOrder
+    order
   }
 }
 
