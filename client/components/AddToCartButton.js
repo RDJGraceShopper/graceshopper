@@ -8,21 +8,22 @@ class AddToCartButton extends React.Component {
     this.updateCart = this.updateCart.bind(this)
   }
 
-  async updateCart(userId, productId, orderId) {
-    // console.log(`${userId} ${productId} ${orderId}`)
-    this.props.addProductToCart(userId, productId, orderId)
+  async updateCart(userId, product, orderId) {
+    this.props.addProductToCart(userId, product, orderId)
   }
 
   componentDidMount() {}
 
   render() {
     const userId = this.props.userId
-    const productId = this.props.productId
+    const product = this.props.product
     const openOrderId = this.props.openOrder.id
+
+    console.log(product)
 
     return (
       <div>
-        <button onClick={() => this.updateCart(userId, productId, openOrderId)}>
+        <button onClick={() => this.updateCart(userId, product, openOrderId)}>
           Add To Cart
         </button>
       </div>
@@ -41,8 +42,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addProductToCart: (userId, productId, orderId) =>
-      dispatch(updateOpenOrder(userId, productId, orderId))
+    addProductToCart: (userId, product, orderId) =>
+      dispatch(updateOpenOrder(userId, product, orderId))
   }
 }
 

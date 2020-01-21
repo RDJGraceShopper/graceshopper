@@ -9,14 +9,14 @@ import {getOrdersForUser, getOpenOrder, makeOrder} from '../store/order'
  */
 
 class UserHome extends React.Component {
-  componentDidMount() {
-    this.props.getOrdersForUser(this.props.user.id)
+  async componentDidMount() {
+    await this.props.getOrdersForUser(this.props.user.id)
 
     // get the open order or create a new one
-    this.props.getOpenOrder(this.props.user.id)
+    await this.props.getOpenOrder(this.props.user.id)
 
     if (!this.props.openOrder.id) {
-      this.props.makeOrder({userId: this.props.user.id})
+      await this.props.makeOrder({userId: this.props.user.id})
     }
   }
 

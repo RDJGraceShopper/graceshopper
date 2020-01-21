@@ -98,12 +98,12 @@ export const getOpenOrder = userId => {
   }
 }
 
-export const updateOpenOrder = (userId, orderId, productId) => {
+export const updateOpenOrder = (userId, product, orderId) => {
   return async dispatch => {
     try {
       const response = await axios.post(`/api/orderproducts/`, {
-        orderId,
-        productId
+        orderId: orderId,
+        product
       })
       dispatch(getOpenOrder(userId))
     } catch (error) {
