@@ -10,7 +10,7 @@ const ProductTile = props => {
         <img src={product.imageURL} className="product_tile" />
         <h3>{product.name}</h3> <p>{product.price}</p>
       </NavLink>
-      <AddToCartButton productId={product.id} />
+      <AddToCartButton product={product} />
     </div>
   )
 }
