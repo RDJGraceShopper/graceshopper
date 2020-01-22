@@ -10,6 +10,7 @@ import {
 } from '../../store'
 import {connect} from 'react-redux'
 import CartOrderItem from './CartOrderItem'
+import CompletedCheckout from './CompletedCheckout'
 
 class Cart extends Component {
   constructor(props) {
@@ -19,9 +20,15 @@ class Cart extends Component {
     //   checkedOut: false
     // }
     this.submitOrder = this.submitOrder.bind(this)
+    this.state = {
+      completedTotal: 0,
+      completed: false
+    }
   }
 
   async submitOrder() {
+    this.setState({completedTotal: this.props.openOrder.total, completed: true})
+
     await this.props.completeOrder(this.props.userId, this.props.openOrder)
 
     // this.setState({products: []})
@@ -43,7 +50,7 @@ class Cart extends Component {
     if (products) {
       return (
         <div>
-          <h1>This is my cart</h1>
+          <h1>Your cart</h1>
           <ul>
             {products.map(product => {
               return (
@@ -58,12 +65,14 @@ class Cart extends Component {
           <button onClick={() => this.submitOrder()}>Submit</button>
         </div>
       )
-    } else {
+    } else if (!this.state.completed) {
       return (
         <div>
-          <h1>No items in cart</h1>
+          <h2>You have no items in your cart</h2>
         </div>
       )
+    } else {
+      return <CompletedCheckout total={this.state.completedTotal} />
     }
   }
 }
