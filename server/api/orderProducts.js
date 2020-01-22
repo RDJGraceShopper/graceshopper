@@ -60,31 +60,34 @@ router.post('/', async (req, res, next) => {
 
 // remove a single item from order
 
-router.put('/', async (req, res, next) => {
-  try {
-    let orderItemToUpdate = await OrderProduct.findOne({
-      where: {
-        productId: req.body.productId,
-        orderId: req.body.orderId
-      }
-    })
+// router.put('/', async (req, res, next) => {
+//   try {
+//     let orderItemToUpdate = await OrderProduct.findOne({
+//       where: {
+//         productId: req.body.productId,
+//         orderId: req.body.orderId
+//       }
+//     })
 
-    if (!orderItemToUpdate) throw new Error(`Order item not found`)
+//     if (!orderItemToUpdate) throw new Error(`Order item not found`)
 
-    if (orderItemToUpdate.quantity === 1) await orderItemToUpdate.destroy()
-    else
-      await orderItemToUpdate.update({quantity: orderItemToUpdate.quantity - 1})
-  } catch (error) {
-    console.log(error)
-  }
-})
+//     if (orderItemToUpdate.quantity === 1) await orderItemToUpdate.destroy()
+//     else
+//       await orderItemToUpdate.update({ quantity: orderItemToUpdate.quantity - 1 })
+//   } catch (error) {
+//     console.log(error)
+//   }
+// })
+
+//comment
 
 // remove a whole product from order
-router.delete('/', async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   try {
+    console.log('REQBODY===>', req)
     let orderItemToDelete = await OrderProduct.findOne({
       where: {
-        productId: req.body.productId,
+        productId: req.body.product.id,
         orderId: req.body.orderId
       }
     })

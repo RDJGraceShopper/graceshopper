@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import store from '../store'
 import {getSingleProduct} from '../store'
 import AddToCartButton from './AddToCartButton'
+import RemoveFromCartButton from './RemoveFromCartButton'
 import {Link} from 'react-router-dom'
 
 class SingleProduct extends React.Component {
@@ -19,6 +20,7 @@ class SingleProduct extends React.Component {
         <p>${product.price / 100}</p>
         <p>{product.description}</p>
         <AddToCartButton product={product} />
+        <RemoveFromCartButton product={product} />
         <Link to="/products">Back To Products</Link>
       </div>
     )
