@@ -162,10 +162,11 @@ ul {
 
 .productList {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: stretch;
-  align-content: space-between;
+  justify-content: space-around;
+  padding: 30px;
+}
+
+.product {
   padding: 30px;
 }
