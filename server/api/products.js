@@ -1,6 +1,6 @@
 const router = require('express').Router()
-const {Product, Tag} = require('../db/models')
-const db = require('../db/')
+const {Product} = require('../db/models')
+const {isAdmin} = require('./routeProtectors')
 
 // ALL PRODUCTS
 
@@ -16,7 +16,7 @@ router.get('/', async (req, res, next) => {
 //SINGLE PRODUCT CRUD
 
 // create
-router.post('/', async (req, res, next) => {
+router.post('/', isAdmin, async (req, res, next) => {
   try {
     // prevent posting explicit id
     delete req.body.id
@@ -41,7 +41,7 @@ router.get('/:productId', async (req, res, next) => {
 })
 
 // update
-router.put('/:productId', async (req, res, next) => {
+router.put('/:productId', isAdmin, async (req, res, next) => {
   try {
     const prodToUpdate = await Product.findByPk(req.params.productId)
 
@@ -60,7 +60,7 @@ router.put('/:productId', async (req, res, next) => {
 })
 
 // delete
-router.delete('/:productId', async (req, res, next) => {
+router.delete('/:productId', isAdmin, async (req, res, next) => {
   try {
     let prodToDelete = await Product.findByPk(req.params.productId)
 

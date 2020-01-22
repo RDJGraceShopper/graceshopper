@@ -27,7 +27,6 @@ class CartOrderItem extends React.Component {
 
   render() {
     let product = this.props.product
-    // console.log(product.orderProduct.quantity)
     let userId = this.props.userId
     const openOrderId = this.props.openOrder.id
 

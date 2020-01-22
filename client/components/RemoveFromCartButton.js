@@ -28,7 +28,6 @@ class RemoveFromCartButton extends Component {
     const userId = this.props.userId
     const product = this.props.product
     const openOrderId = this.props.openOrder.id
-    // console.log('OpenOrder===>', this.props.product)
     return (
       <div>
         <button onClick={() => this.updateCart(userId, product, openOrderId)}>

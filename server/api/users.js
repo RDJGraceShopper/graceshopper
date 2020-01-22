@@ -1,11 +1,7 @@
 const router = require('express').Router()
 
 const {User, Order, Product, OrderProduct} = require('../db/models')
-const {
-  isAdmin,
-  isLoggedInOrIsAdmin,
-  duplicateUsers
-} = require('./routeProtectors')
+const {isAdmin} = require('./routeProtectors')
 
 //CREATE NEW USER
 router.post('/signup', async (req, res, next) => {
@@ -24,7 +20,7 @@ router.post('/signup', async (req, res, next) => {
   }
 })
 
-router.post('/login', duplicateUsers, async (req, res, next) => {
+router.post('/login', async (req, res, next) => {
   const logInUser = await User.find(user => user.email === req.body.email)
   if (logInUser === null) {
     return res.status(400).send('Cannot Find User')
@@ -47,7 +43,7 @@ router.get('/', isAdmin, async (req, res, next) => {
 })
 
 // GET USER BY ID
-router.get('/:id', isLoggedInOrIsAdmin, async (req, res, next) => {
+router.get('/:id', isAdmin, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id, {
       include: [{model: Order, as: 'orders'}]
@@ -59,7 +55,7 @@ router.get('/:id', isLoggedInOrIsAdmin, async (req, res, next) => {
 })
 
 //MODIFY USER
-router.put('/:id', isLoggedInOrIsAdmin, async (req, res, next) => {
+router.put('/:id', isAdmin, async (req, res, next) => {
   try {
     const updateUser = await User.update(req.body, {
       returning: true,

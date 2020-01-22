@@ -12,7 +12,6 @@ const ProductTile = props => {
         <h3>{product.name}</h3> <p>{product.price / 100}</p>
       </NavLink>
       <AddToCartButton product={product} />
-      <RemoveFromCartButton product={product} />
     </div>
   )
 }
