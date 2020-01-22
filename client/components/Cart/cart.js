@@ -29,7 +29,11 @@ class Cart extends Component {
 
   async componentDidMount() {
     if (!this.props.openOrder.id)
-      await this.props.getOpenOrder(this.props.userId)
+      if (this.props.userId) {
+        await this.props.getOpenOrder(this.props.userId)
+      } else {
+        await this.props.makeOrder({})
+      }
 
     await this.props.getOrder(this.props.openOrder.id)
   }

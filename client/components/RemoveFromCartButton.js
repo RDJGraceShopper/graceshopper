@@ -10,8 +10,15 @@ class RemoveFromCartButton extends Component {
 
   async updateCart(userId, product, orderId) {
     if (!orderId) {
-      await this.props.getOpenOrder(userId)
-      orderId = this.props.openOrder.id
+      if (!userId) {
+        if (!this.props.openOrder.id) {
+          await this.props.makeOrder({})
+        }
+        orderId = this.props.openOrder.id
+      } else {
+        await this.props.getOpenOrder(userId)
+        orderId = this.props.openOrder.id
+      }
     }
     await this.props.removeProductFromCart(userId, product, orderId)
   }
