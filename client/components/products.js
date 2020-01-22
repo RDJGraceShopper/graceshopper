@@ -16,7 +16,7 @@ class Products extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="productList">
         <ul>
           {this.props.products &&
             this.props.products.map(product => {
