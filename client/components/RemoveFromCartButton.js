@@ -32,7 +32,7 @@ class RemoveFromCartButton extends Component {
   }
 }
 
-//Connecting to Redux Store
+// Connecting to Redux Store
 const mapStateToProps = state => {
   return {
     userId: state.user.id,
