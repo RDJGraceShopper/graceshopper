@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {deleteFromOrder} from '../store'
+import {deleteFromOrder, getOpenOrder} from '../store'
 
 class RemoveFromCartButton extends Component {
   constructor(props) {
@@ -9,6 +9,10 @@ class RemoveFromCartButton extends Component {
   }
 
   async updateCart(userId, product, orderId) {
+    if (!orderId) {
+      await this.props.getOpenOrder(userId)
+      orderId = this.props.openOrder.id
+    }
     await this.props.removeProductFromCart(userId, product, orderId)
   }
   componentDidMount() {}
@@ -17,7 +21,7 @@ class RemoveFromCartButton extends Component {
     const userId = this.props.userId
     const product = this.props.product
     const openOrderId = this.props.openOrder.id
-    console.log('OpenOrder===>', this.props.product)
+    // console.log('OpenOrder===>', this.props.product)
     return (
       <div>
         <button onClick={() => this.updateCart(userId, product, openOrderId)}>
@@ -39,7 +43,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     removeProductFromCart: (userId, product, orderId) =>
-      dispatch(deleteFromOrder(userId, product, orderId))
+      dispatch(deleteFromOrder(userId, product, orderId)),
+    getOpenOrder: userId => dispatch(getOpenOrder(userId))
   }
 }
 
