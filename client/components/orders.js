@@ -15,6 +15,7 @@ class Orders extends React.Component {
         <ul>
           {this.props.orders &&
             this.props.orders.map(order => {
+              if (order.status === 'Pending') return
               return (
                 <li key={order.id}>
                   <h3>{order.total}</h3>

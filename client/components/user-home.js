@@ -33,6 +33,7 @@ class UserHome extends React.Component {
         <ul>
           {orders &&
             orders.map(order => {
+              if (order.status === 'Pending') return
               return (
                 <li key={order.id}>
                   <OrderTile order={order} />
