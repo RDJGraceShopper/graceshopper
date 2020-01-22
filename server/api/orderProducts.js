@@ -84,7 +84,6 @@ router.post('/', async (req, res, next) => {
 // remove a whole product from order
 router.put('/', async (req, res, next) => {
   try {
-    console.log('REQBODY===>', req)
     let orderItemToDelete = await OrderProduct.findOne({
       where: {
         productId: req.body.product.id,

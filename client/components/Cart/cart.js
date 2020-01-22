@@ -27,6 +27,9 @@ class Cart extends Component {
   }
 
   async componentDidMount() {
+    if (!this.props.openOrder.id)
+      await this.props.getOpenOrder(this.props.userId)
+
     await this.props.getOrder(this.props.openOrder.id)
 
     this.setState({products: this.props.order.products})
