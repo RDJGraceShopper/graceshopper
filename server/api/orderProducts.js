@@ -83,6 +83,13 @@ router.post('/', async (req, res, next) => {
 
 // remove a whole product from order
 router.put('/', async (req, res, next) => {
+  let updateOrderTotal = async (orderId, price) => {
+    let orderToUpdate = await Order.findByPk(req.body.orderId)
+    await orderToUpdate.update({
+      total: Number(orderToUpdate.total) - Number(price)
+    })
+  }
+
   try {
     let orderItemToDelete = await OrderProduct.findOne({
       where: {
@@ -92,7 +99,18 @@ router.put('/', async (req, res, next) => {
     })
 
     if (!orderItemToDelete) throw new Error(`Order item not found`)
-    else {
+    // if we only want to delete one
+    else if (req.body.quantity && Number(orderItemToDelete.quantity) > 1) {
+      await orderItemToDelete.update({
+        quantity: Number(orderItemToDelete.quantity) - Number(req.body.quantity)
+      })
+      await updateOrderTotal(req.body.orderId, orderItemToDelete.price)
+      res.status(201).send()
+    } else {
+      await updateOrderTotal(
+        req.body.orderId,
+        Number(orderItemToDelete.price) * Number(orderItemToDelete.quantity)
+      )
       await orderItemToDelete.destroy()
       res.status(204).send()
     }

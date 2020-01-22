@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const {User, Order} = require('../db/models')
+const {User, Order, Product, OrderProduct} = require('../db/models')
 const {
   isAdmin,
   isLoggedInOrIsAdmin,
@@ -123,7 +123,8 @@ router.get('/:id/openOrder', async (req, res, next) => {
       where: {
         userId: req.params.id,
         status: 'Pending'
-      }
+      },
+      include: [{model: Product, as: 'products', through: OrderProduct}]
     })
 
     res.status(200).send(openOrder)

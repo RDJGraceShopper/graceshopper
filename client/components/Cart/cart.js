@@ -9,21 +9,22 @@ import {
   getOpenOrder
 } from '../../store'
 import {connect} from 'react-redux'
+import CartOrderItem from './CartOrderItem'
 
 class Cart extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      products: [],
-      checkedOut: false
-    }
+    // this.state = {
+    //   products: [],
+    //   checkedOut: false
+    // }
     this.submitOrder = this.submitOrder.bind(this)
   }
 
   async submitOrder() {
     await this.props.completeOrder(this.props.userId, this.props.openOrder)
 
-    this.setState({products: []})
+    // this.setState({products: []})
   }
 
   async componentDidMount() {
@@ -31,12 +32,10 @@ class Cart extends Component {
       await this.props.getOpenOrder(this.props.userId)
 
     await this.props.getOrder(this.props.openOrder.id)
-
-    this.setState({products: this.props.order.products})
   }
 
   render() {
-    const products = this.state.products
+    const products = this.props.openOrder.products
     if (products) {
       return (
         <div>
@@ -45,9 +44,7 @@ class Cart extends Component {
             {products.map(product => {
               return (
                 <li key={product.id}>
-                  <h4>{product.name}</h4>
-                  <p>Price: {product.orderProduct.price / 100}</p>
-                  <p>Quantity: {product.orderProduct.quantity}</p>
+                  <CartOrderItem product={product} />
                 </li>
               )
             })}
