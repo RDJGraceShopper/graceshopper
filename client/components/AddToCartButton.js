@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {updateOpenOrder, getOpenOrder} from '../store'
+import {updateOpenOrder, getOpenOrder, gotOpenOrder} from '../store'
 
 class AddToCartButton extends React.Component {
   constructor(props) {
@@ -10,8 +10,13 @@ class AddToCartButton extends React.Component {
 
   async updateCart(userId, product, orderId) {
     if (!orderId) {
-      await this.props.getOpenOrder(userId)
-      orderId = this.props.openOrder.id
+      if (!userId) {
+        gotOpenOrder({status: 'Pending'})
+        orderId = this.props.openOrder.id
+      } else {
+        await this.props.getOpenOrder(userId)
+        orderId = this.props.openOrder.id
+      }
     }
 
     await this.props.addProductToCart(userId, product, orderId)

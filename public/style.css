@@ -12,10 +12,10 @@ a {
   padding: 20px;
   text-transform: uppercase;
   border-radius: 6px;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   text-align: center;
-  flex: auto;
+  flex: content;
   flex-direction: column;
   transition: all 0.3s ease 0s;
 }
@@ -149,4 +149,23 @@ button:hover {
   /* -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
   -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57); */
   transition: all 0.3s ease 0s;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul {
+  color: white;
+}
+
+.productList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  align-content: space-between;
+  padding: 15px;
 }

@@ -74,7 +74,7 @@ router.put('/:id', isLoggedInOrIsAdmin, async (req, res, next) => {
 })
 
 // DELETE USER ONLY BY ADMIN
-router.delete('/:id', isLoggedInOrIsAdmin, async (req, res, next) => {
+router.delete('/:id', isAdmin, async (req, res, next) => {
   try {
     await User.destroy({
       where: {

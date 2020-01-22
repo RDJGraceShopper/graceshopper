@@ -5,7 +5,6 @@ import axios from 'axios'
 import {
   GOT_ALL_ORDERS,
   GOT_SINGLE_ORDER,
-  UPDATED_SINGLE_ORDER,
   GOT_OPEN_ORDER,
   REMOVE_FROM_CART
 } from './actionTypes'
@@ -34,7 +33,7 @@ export const gotSingleOrder = order => {
   }
 }
 
-const gotOpenOrder = openOrder => {
+export const gotOpenOrder = openOrder => {
   return {
     type: GOT_OPEN_ORDER,
     openOrder
@@ -113,7 +112,11 @@ export const updateOpenOrder = (userId, product, orderId) => {
         orderId: orderId,
         product
       })
-      dispatch(getOpenOrder(userId))
+      if (userId) {
+        dispatch(getOpenOrder(userId))
+      } else {
+        dispatch(gotOpenOrder(response.data))
+      }
     } catch (error) {
       console.log(error)
     }
