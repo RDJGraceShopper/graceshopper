@@ -6,7 +6,8 @@ import {
   GOT_ALL_ORDERS,
   GOT_SINGLE_ORDER,
   UPDATED_SINGLE_ORDER,
-  GOT_OPEN_ORDER
+  GOT_OPEN_ORDER,
+  REMOVE_FROM_CART
 } from './actionTypes'
 
 // INITIAL STATE
@@ -36,6 +37,13 @@ export const gotSingleOrder = order => {
 const gotOpenOrder = openOrder => {
   return {
     type: GOT_OPEN_ORDER,
+    openOrder
+  }
+}
+
+const removeFromCart = openOrder => {
+  return {
+    type: REMOVE_FROM_CART,
     openOrder
   }
 }
@@ -105,6 +113,24 @@ export const updateOpenOrder = (userId, product, orderId) => {
         orderId: orderId,
         product
       })
+      dispatch(getOpenOrder(userId))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const deleteFromOrder = (userId, product, orderId) => {
+  return async dispatch => {
+    try {
+      console.log('OrderID===>', orderId)
+      console.log('Product===>', product)
+
+      const response = await axios.put('/api/orderproducts', {
+        orderId: orderId,
+        product: product
+      })
+      console.log(response)
       dispatch(getOpenOrder(userId))
     } catch (error) {
       console.log(error)

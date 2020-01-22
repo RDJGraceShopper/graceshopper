@@ -1,38 +1,34 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {updateOpenOrder} from '../store'
+import {deleteFromOrder} from '../store'
 
-class AddToCartButton extends React.Component {
+class RemoveFromCartButton extends Component {
   constructor(props) {
     super(props)
     this.updateCart = this.updateCart.bind(this)
   }
 
   async updateCart(userId, product, orderId) {
-    await this.props.addProductToCart(userId, product, orderId)
+    await this.props.removeProductFromCart(userId, product, orderId)
   }
-
   componentDidMount() {}
 
   render() {
     const userId = this.props.userId
     const product = this.props.product
     const openOrderId = this.props.openOrder.id
-
-    console.log(product)
-
+    console.log('OpenOrder===>', this.props.product)
     return (
       <div>
         <button onClick={() => this.updateCart(userId, product, openOrderId)}>
-          Add To Cart
+          Remove From Cart
         </button>
       </div>
     )
   }
 }
 
-// CONNECT COMPONENT TO REDUX STORE
-
+//Connecting to Redux Store
 const mapStateToProps = state => {
   return {
     userId: state.user.id,
@@ -42,10 +38,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addProductToCart: (userId, product, orderId) =>
-      dispatch(updateOpenOrder(userId, product, orderId))
+    removeProductFromCart: (userId, product, orderId) =>
+      dispatch(deleteFromOrder(userId, product, orderId))
   }
 }
 
-// hfe
-export default connect(mapStateToProps, mapDispatchToProps)(AddToCartButton)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RemoveFromCartButton)
