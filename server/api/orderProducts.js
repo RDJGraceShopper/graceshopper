@@ -39,7 +39,7 @@ router.post('/', async (req, res, next) => {
       })
 
       updateOrderTotal(req.body.orderId, oldOrderItem.price)
-      res.status(200).send({id: oldOrderItem.id})
+      res.status(200).send(oldOrderItem)
     } else {
       delete req.body.id
 
@@ -51,7 +51,7 @@ router.post('/', async (req, res, next) => {
       })
 
       updateOrderTotal(req.body.orderId, newOrderItem.price)
-      res.status(201).send({id: newOrderItem.id})
+      res.status(201).send(newOrderItem)
     }
   } catch (error) {
     next(error)
