@@ -17,12 +17,10 @@ class Products extends React.Component {
   render() {
     return (
       <div className="productList">
-        <ul>
-          {this.props.products &&
-            this.props.products.map(product => {
-              return <ProductTile product={product} key={product.id} />
-            })}
-        </ul>
+        {this.props.products &&
+          this.props.products.map(product => {
+            return <ProductTile product={product} key={product.id} />
+          })}
       </div>
     )
   }
