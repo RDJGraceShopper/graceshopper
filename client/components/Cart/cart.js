@@ -50,7 +50,7 @@ class Cart extends Component {
           })}
         </ul>
 
-        <h2>Order total price: {this.props.order.total / 100}</h2>
+        <h2>Order total price: {this.props.openOrder.total / 100}</h2>
         <button onClick={() => this.submitOrder()}>Submit</button>
       </div>
     )
