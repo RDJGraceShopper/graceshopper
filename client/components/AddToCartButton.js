@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {updateOpenOrder, getOpenOrder, gotOpenOrder} from '../store'
+import {updateOpenOrder, getOpenOrder, gotOpenOrder, makeOrder} from '../store'
 
 class AddToCartButton extends React.Component {
   constructor(props) {
@@ -11,7 +11,9 @@ class AddToCartButton extends React.Component {
   async updateCart(userId, product, orderId) {
     if (!orderId) {
       if (!userId) {
-        gotOpenOrder({status: 'Pending'})
+        if (!this.props.openOrder.id) {
+          await this.props.makeOrder({})
+        }
         orderId = this.props.openOrder.id
       } else {
         await this.props.getOpenOrder(userId)
@@ -52,7 +54,8 @@ const mapDispatchToProps = dispatch => {
   return {
     addProductToCart: (userId, product, orderId) =>
       dispatch(updateOpenOrder(userId, product, orderId)),
-    getOpenOrder: userId => dispatch(getOpenOrder(userId))
+    getOpenOrder: userId => dispatch(getOpenOrder(userId)),
+    makeOrder: userId => dispatch(makeOrder(userId))
   }
 }
 

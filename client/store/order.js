@@ -105,6 +105,17 @@ export const getOpenOrder = userId => {
   }
 }
 
+export const getOpenGuestOrder = orderId => {
+  return async dispatch => {
+    try {
+      const response = await axios.get(`/api/orders/${orderId}`)
+      dispatch(gotOpenOrder(response.data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 export const updateOpenOrder = (userId, product, orderId) => {
   return async dispatch => {
     try {
@@ -115,7 +126,7 @@ export const updateOpenOrder = (userId, product, orderId) => {
       if (userId) {
         dispatch(getOpenOrder(userId))
       } else {
-        dispatch(gotOpenOrder(response.data))
+        dispatch(getOpenGuestOrder(orderId))
       }
     } catch (error) {
       console.log(error)
@@ -134,7 +145,11 @@ export const deleteFromOrder = (userId, product, orderId) => {
         product: product
       })
       // console.log(response)
-      dispatch(getOpenOrder(userId))
+      if (userId) {
+        dispatch(getOpenOrder(userId))
+      } else {
+        dispatch(getOpenGuestOrder(orderId))
+      }
     } catch (error) {
       console.log(error)
     }
@@ -149,7 +164,11 @@ export const deleteOneFromOrder = (userId, product, orderId) => {
         product: product,
         quantity: 1
       })
-      dispatch(getOpenOrder(userId))
+      if (userId) {
+        dispatch(getOpenOrder(userId))
+      } else {
+        dispatch(getOpenGuestOrder(orderId))
+      }
     } catch (error) {
       console.log(error)
     }
@@ -162,7 +181,11 @@ export const completeOrder = (userId, order) => {
       const response = await axios.put(`/api/orders/${order.id}`, {
         status: 'Completed'
       })
-      dispatch(makeOrder({userId}))
+      if (userId) {
+        dispatch(makeOrder({userId}))
+      } else {
+        dispatch(makeOrder({}))
+      }
     } catch (error) {
       console.log(error)
     }
