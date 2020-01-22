@@ -70,8 +70,8 @@ class Cart extends Component {
 const mapStateToProps = state => {
   return {
     openOrder: state.openOrder,
-    order: state.order,
-    userId: state.user.id
+    order: state.order
+    // userId: state.user.id
   }
 }
 
