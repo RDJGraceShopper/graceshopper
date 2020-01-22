@@ -34,26 +34,33 @@ class Cart extends Component {
 
   render() {
     const products = this.state.products
+    if (products) {
+      return (
+        <div>
+          <h1>This is my cart</h1>
+          <ul>
+            {products.map(product => {
+              return (
+                <li key={product.id}>
+                  <h4>{product.name}</h4>
+                  <p>Price: {product.orderProduct.price / 100}</p>
+                  <p>Quantity: {product.orderProduct.quantity}</p>
+                </li>
+              )
+            })}
+          </ul>
 
-    return (
-      <div>
-        <h1>This is my cart</h1>
-        <ul>
-          {products.map(product => {
-            return (
-              <li key={product.id}>
-                <h4>{product.name}</h4>
-                <p>Price: {product.orderProduct.price / 100}</p>
-                <p>Quantity: {product.orderProduct.quantity}</p>
-              </li>
-            )
-          })}
-        </ul>
-
-        <h2>Order total price: {this.props.openOrder.total / 100}</h2>
-        <button onClick={() => this.submitOrder()}>Submit</button>
-      </div>
-    )
+          <h2>Order total price: {this.props.openOrder.total / 100}</h2>
+          <button onClick={() => this.submitOrder()}>Submit</button>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <h1>No items in cart</h1>
+        </div>
+      )
+    }
   }
 }
 
